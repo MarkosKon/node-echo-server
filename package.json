@@ -4,7 +4,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "req:key": "openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \"/C=GR/ST=ATTICA/L=ATHENS/O=LOCALHOST/CN=localhost\" -keyout ./ssl.key -out ./ssl.crt"
   },
   "prettier": {
     "printWidth": 120

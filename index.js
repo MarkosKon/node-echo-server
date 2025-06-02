@@ -1,11 +1,12 @@
 import { createServer } from "node:http";
-import { appendFile } from "node:fs";
+import { createServer as createHttpsServer } from "node:https";
+import { appendFile, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const server = createServer((req, res) => {
+function handler(req, res) {
   let body = "";
 
   req.on("data", (chunk) => {
@@ -31,10 +32,22 @@ ${body}
     res.writeHead(200, { "Content-Type": "text/plain" });
     res.end("Done!");
   });
-});
+}
+
+const credentials = {
+  key: readFileSync(join(__dirname, "ssl.key")),
+  cert: readFileSync(join(__dirname, "ssl.crt")),
+};
+
+const http = createServer(handler);
+const https = createHttpsServer(credentials, handler);
 
 // Start server
 const PORT = 80;
-server.listen(PORT, () => {
+const PORT_HTTPS = 3443;
+http.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
+});
+https.listen(PORT_HTTPS, () => {
+  console.log(`Server listening on port ${PORT_HTTPS}`);
 });
