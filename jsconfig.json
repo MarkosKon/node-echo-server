@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "checkJs": true,
+    "allowJs": true,
+    "noEmit": true,
+    "module": "System",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "target": "es2022",
+    "lib": [
+      "ES2022"
+    ]
+  },
+}

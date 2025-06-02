@@ -6,6 +6,11 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+/**
+ *
+ * @param {import('http').IncomingMessage} req
+ * @param {import('http').ServerResponse} res
+ */
 function handler(req, res) {
   let body = "";
 
@@ -14,12 +19,21 @@ function handler(req, res) {
   });
 
   req.on("end", () => {
-    const logEntry = `${req.method} ${req.url} TODO_HTTP_VERSION ${new Date().toISOString()}
-${JSON.stringify(req.headers, null, 2)}
+    let logEntry = `${req.method} ${req.url} HTTP/${req.httpVersion} ${new Date().toISOString()}
 
-${body}
-
+HTTP headers:
+${Object.entries(req.headers)
+  .map(([k, v]) => `${k}: ${v}`)
+  .join("\n")}
 `;
+
+    if (body)
+      logEntry += `
+Request body:
+${body}
+`;
+
+    logEntry += "\n";
 
     // Write log entry to file
     const logFile = join(__dirname, "requests.txt");
