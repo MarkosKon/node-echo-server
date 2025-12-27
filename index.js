@@ -57,8 +57,8 @@ const http = createServer(handler);
 const https = createHttpsServer(credentials, handler);
 
 // Start server
-const PORT = 80;
-const PORT_HTTPS = 3443;
+const PORT = Number(process.env.PORT) || 3000;
+const PORT_HTTPS = Number(process.env.PORT_HTTPS) || 3443;
 http.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });

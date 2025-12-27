@@ -2,3 +2,4 @@ node_modules
 requests.txt
 ssl.key
 ssl.crt
+.env
