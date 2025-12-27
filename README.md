@@ -1,6 +1,6 @@
 # Node echo server
 
-A server that responds with `200` and logs the HTTP headers and body of the request in the `requests.txt` file. It's useful for development.
+A server that responds with HTTP `200` and logs the HTTP headers and body of the request in the `requests.txt` file. It's useful for development.
 
 ```bash
 $ npm run start
